@@ -9,7 +9,7 @@ public class PlayerMovementScript : MonoBehaviour
     public float actualSpeed = 1.6f;
     public float walkSpeed = 1.6f;
     public float sprintSpeed = 3.6f;
-    public float accelSpeed = 0.2f;
+    public float accelSpeed = 0.4f;
     public float turnSmoothTime = 0.01f;
     float turnSmoothVelocity;
     private Rigidbody rigidbodycomponent;
@@ -52,9 +52,9 @@ public class PlayerMovementScript : MonoBehaviour
         //important definitions for user input
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         //rotation code
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
         if (rigidbodycomponent.velocity.magnitude > 0.05) // this if is necessary to stop rotation from resetting when player stops moving
@@ -63,7 +63,6 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         //movement code
-        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         rigidbodycomponent.velocity = new Vector3(horizontal, 0, vertical).normalized * actualSpeed;
         if (sprinting && actualSpeed < sprintSpeed) //speeding up curve
         {
@@ -71,7 +70,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if (!sprinting && actualSpeed > walkSpeed) //slowing down curve
         {
-            actualSpeed -= accelSpeed*2;
+            actualSpeed -= accelSpeed * 2;
         }
 
         //camera code

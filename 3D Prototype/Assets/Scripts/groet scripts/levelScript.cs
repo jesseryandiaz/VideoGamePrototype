@@ -57,14 +57,9 @@ public class levelScript : MonoBehaviour
             //Fog
             playerCamera.cullingMask = 2147483647;
             //Enemies
-            //enemyEthereal.GetComponent<MeshRenderer>().enabled = true;
             enemyEthereal.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
             GameObject.Find("body").GetComponent<SkinnedMeshRenderer>().enabled = false;
             GameObject.Find("eye").GetComponent<SkinnedMeshRenderer>().enabled = false;
-            //enemyPhysical.GetComponent<MeshRenderer>().enabled = false;
-            //enemyPhysical.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = false;
-            //Player/Enemy Collisions
-
         }
         else //inPhysical
         {
@@ -90,14 +85,9 @@ public class levelScript : MonoBehaviour
             //Fog
             playerCamera.cullingMask = 503;
             //Enemies
-            //enemyEthereal.GetComponent<MeshRenderer>().enabled = false;
             enemyEthereal.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("body").GetComponent<SkinnedMeshRenderer>().enabled = true;
             GameObject.Find("eye").GetComponent<SkinnedMeshRenderer>().enabled = true;
-            //enemyPhysical.GetComponent<MeshRenderer>().enabled = true;
-            //enemyPhysical.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
-            //Player/Enemy Collisions
-
         }
     }
     //Let other scripts check this variable

@@ -2844,7 +2844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100100, guid: f2a03eaf53eec964aa81784732592d2e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400064, guid: f2a03eaf53eec964aa81784732592d2e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5361,7 +5361,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1130688064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c648a5949901df2439fd011141c88a31, type: 3}
+  m_Script: {fileID: 11500000, guid: a903a05ab3066be40b679e4524692d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 1130688065}
@@ -5396,12 +5396,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1130688064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9519350fe55ab418061301e3a85dd2, type: 3}
+  m_Script: {fileID: 11500000, guid: d6d48c066d6189440a3395872742ef4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelScript: {fileID: 2126258618}
   cam: {fileID: 963194228}
-  speed: 1.6
+  actualSpeed: 1.6
+  walkSpeed: 1.6
+  sprintSpeed: 3.6
+  accelSpeed: 0.2
   turnSmoothTime: 0.1
 --- !u!1001 &1154769769
 PrefabInstance:
@@ -6203,7 +6206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1258852110
 Transform:
   m_ObjectHideFlags: 0
@@ -9609,7 +9612,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2126258618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412c954ad0d07c948bcbf813ae5cdbd7, type: 3}
+  m_Script: {fileID: 11500000, guid: ca43173c205a23842bb40c587fb349bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioMusic: {fileID: 106054137}

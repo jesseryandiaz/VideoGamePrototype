@@ -29,6 +29,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
+        //switch realms key
         if (Input.GetKeyDown(KeyCode.E))
         {
             gameObject.GetComponent<AudioSource>().Play();
@@ -48,22 +49,32 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //important definitions for user input
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        //rotation code
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        if (rigidbodycomponent.velocity.magnitude > 0.05) // this if is necessary to stop rotation from resetting when player stops moving
+        {
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        }
+
+        //movement code
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         rigidbodycomponent.velocity = new Vector3(horizontal, 0, vertical).normalized * actualSpeed;
-        cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z-7.2f);
-        if (sprinting && actualSpeed < sprintSpeed)
+        if (sprinting && actualSpeed < sprintSpeed) //speeding up curve
         {
             actualSpeed += accelSpeed;
         }
-        if (!sprinting && actualSpeed > walkSpeed)
+        if (!sprinting && actualSpeed > walkSpeed) //slowing down curve
         {
-            actualSpeed -= accelSpeed;
+            actualSpeed -= accelSpeed*2;
         }
+
+        //camera code
+        cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z - 7.2f);
     }
 }

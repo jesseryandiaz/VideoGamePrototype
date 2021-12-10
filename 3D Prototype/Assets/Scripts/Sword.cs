@@ -7,13 +7,13 @@ public class Sword : MonoBehaviour
 
 
     Animator animator;
-    Collider colliderino;
+    public Collider colliderino;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        colliderino = GetComponent<Collider>();
+        //colliderino = GetComponent<Collider>();
     }
 
     // Update is called once per frame

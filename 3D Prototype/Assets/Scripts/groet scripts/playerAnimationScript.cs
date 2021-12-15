@@ -14,30 +14,23 @@ public class playerAnimationScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(switchRealm))
+        
+        if (Input.GetKey(moveFor) || Input.GetKey(moveLeft) || 
+            Input.GetKey(moveBack) || Input.GetKey(moveRight))
         {
-            playerAnimator.SetTrigger("switchRealms");
-        }
-        if (Input.GetKeyDown(moveFor) || Input.GetKeyDown(moveLeft) || 
-            Input.GetKeyDown(moveBack) || Input.GetKeyDown(moveRight))
-        {
-            playerAnimator.SetBool("move", true);
-            if (Input.GetKey(sprint)){
-                playerAnimator.SetBool("moveFast", true);
+            if(Input.GetKey(sprint)){
+                playerAnimator.SetBool("running", true);
             }
-        }
-        if (Input.GetKeyDown(sprint))
-        {
-            playerAnimator.SetBool("moveFast", true);
-        }
-        if (Input.GetKeyUp(sprint))
-        {
-            playerAnimator.SetBool("moveFast", false);
+            else
+            {
+                playerAnimator.SetBool("walking", true);
+                playerAnimator.SetBool("running", false);
+            }
         }
         if (!Input.GetKey(moveFor) && !Input.GetKey(moveLeft) && !Input.GetKey(moveBack) && !Input.GetKey(moveRight))
         {
-            playerAnimator.SetBool("move", false);
-            playerAnimator.SetBool("moveFast", false);
+            playerAnimator.SetBool("running", false);
+            playerAnimator.SetBool("walking", false);
         }
     }
 }

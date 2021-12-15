@@ -6,10 +6,10 @@ public class PlayerMovementScript : MonoBehaviour
 {
     public GameObject levelScript;
     public Transform cam;
-    public float actualSpeed = 1.6f;
+    public float actualSpeed = 0.0f;
+    public float maxSpeed = 3.6f;
     public float walkSpeed = 1.6f;
     public float sprintSpeed = 3.6f;
-    public float accelSpeed = 0.4f;
     public float turnSmoothTime = 0.01f;
     float turnSmoothVelocity;
     private Rigidbody rigidbodycomponent;
@@ -51,7 +51,9 @@ public class PlayerMovementScript : MonoBehaviour
     {
         //important definitions for user input
         horizontal = Input.GetAxis("Horizontal");
+        //Debug.Log("Horizontal Input:  " + horizontal);
         vertical = Input.GetAxis("Vertical");
+        //Debug.Log("Vertical Input:  " + vertical);
 
         //rotation code
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -63,15 +65,23 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         //movement code
-        rigidbodycomponent.velocity = new Vector3(horizontal, 0, vertical).normalized * actualSpeed;
-        if (sprinting && actualSpeed < sprintSpeed) //speeding up curve
+        if ((Mathf.Abs(horizontal) > 0  || Mathf.Abs(vertical) > 0) && actualSpeed<walkSpeed) //player walking
         {
-            actualSpeed += accelSpeed;
+            actualSpeed += 0.8f;
         }
-        if (!sprinting && actualSpeed > walkSpeed) //slowing down curve
+        if(Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 && actualSpeed>0.0f) //player stopped
         {
-            actualSpeed -= accelSpeed * 2;
+            actualSpeed -= 0.4f;
         }
+        if (sprinting && actualSpeed < sprintSpeed ) //player sprinting
+        {
+            actualSpeed += 0.4f;
+        }
+        if (!sprinting && actualSpeed > walkSpeed) //player not sprinting
+        {
+            actualSpeed -= 0.4f * 2;
+        }
+        rigidbodycomponent.velocity = new Vector3(horizontal, rigidbodycomponent.velocity.y, vertical).normalized * actualSpeed;
 
         //camera code
         cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z - 7.2f);

@@ -7,10 +7,10 @@ public class PlayerMovementScript : MonoBehaviour
     public GameObject levelScript;
     public Transform cam;
     public float actualSpeed = 0.0f;
-    public float maxSpeed = 3.6f;
+    public float accelSpeed = 0.4f;
     public float walkSpeed = 1.6f;
     public float sprintSpeed = 3.6f;
-    public float turnSmoothTime = 0.01f;
+    public float turnSmoothTime = 0.001f;
     float turnSmoothVelocity;
     private Rigidbody rigidbodycomponent;
     private bool sprinting;
@@ -19,6 +19,10 @@ public class PlayerMovementScript : MonoBehaviour
     private float horizontal;
     private float vertical;
 
+    //camera offsets
+    public float xoffset = 0.0f;
+    public float yoffset = 4.6f;
+    public float zoffset = 7.2f;
 
     void Start()
     {
@@ -55,7 +59,7 @@ public class PlayerMovementScript : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         //Debug.Log("Vertical Input:  " + vertical);
 
-        //rotation code
+        //ROTATION CODE
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -64,26 +68,43 @@ public class PlayerMovementScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
 
-        //movement code
-        if ((Mathf.Abs(horizontal) > 0  || Mathf.Abs(vertical) > 0) && actualSpeed<walkSpeed) //player walking
+        //MOVEMENT CODE
+        bool moving = (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0); //True if inputs are received
+        //If movement inputs are received, accelerate to walking speed
+        if (moving)
         {
-            actualSpeed += 0.8f;
+            if(actualSpeed < walkSpeed) //always get up to walk speed
+            {
+                actualSpeed += accelSpeed;
+            }
+            if(sprinting && actualSpeed < sprintSpeed)//accelerate faster if sprinting, also accelerate up to sprint speed
+            {
+                actualSpeed += accelSpeed;
+            }
+            if (!sprinting && actualSpeed>walkSpeed) //if not sprinting, go back down to walk speed
+            {
+                actualSpeed -= accelSpeed;
+            }
         }
-        if(Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 && actualSpeed>0.0f) //player stopped
+        //If movement inputs are not received, deccelerate to stop
+        if (!moving && actualSpeed>0.0f)
         {
-            actualSpeed -= 0.4f;
+            actualSpeed -= accelSpeed/4;
+            //If character was sprinting, deccelerate faster
+            if (actualSpeed > walkSpeed)
+            {
+                //actualSpeed -= accelSpeed;
+            }
         }
-        if (sprinting && actualSpeed < sprintSpeed ) //player sprinting
+        if (actualSpeed < 0.0f)
         {
-            actualSpeed += 0.4f;
+            actualSpeed = 0.0f;
         }
-        if (!sprinting && actualSpeed > walkSpeed) //player not sprinting
-        {
-            actualSpeed -= 0.4f * 2;
-        }
+        //Updates velocity with above changes
         rigidbodycomponent.velocity = new Vector3(horizontal, rigidbodycomponent.velocity.y, vertical).normalized * actualSpeed;
+        //rigidbodycomponent.velocity = new Vector3(hmem, rigidbodycomponent.velocity.y, vmem).normalized * actualSpeed;
 
-        //camera code
+        //CAMERA CODE
         cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z - 7.2f);
     }
 }

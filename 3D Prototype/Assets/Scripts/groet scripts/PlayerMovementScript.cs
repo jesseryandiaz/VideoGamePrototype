@@ -24,6 +24,11 @@ public class PlayerMovementScript : MonoBehaviour
     public float yoffset = 4.6f;
     public float zoffset = 7.2f;
 
+    //spell prefab
+    public GameObject holySpell;
+    private Vector3 holySpellSpawnPoint;
+    bool holySpellFlag;
+
     void Start()
     {
         Debug.Log("Hello World");
@@ -48,6 +53,13 @@ public class PlayerMovementScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             sprinting = false;
+        }
+
+        //Holy Spell
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            //Debug.Log("it me");
+            HolySpellDelayed(3.0f);
         }
     }
 
@@ -106,5 +118,37 @@ public class PlayerMovementScript : MonoBehaviour
 
         //CAMERA CODE
         cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z - 7.2f);
+    }
+
+
+
+
+
+    //Groets playing with spell stuff down here.. NUM1 to cast
+    private void HolySpellDelayed(float delay)
+    {
+        if (!holySpellFlag)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            holySpellSpawnPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 6.0f);
+            Invoke("HolySpell", delay);
+            holySpellFlag = true;
+        }
+    }
+    private void HolySpell()
+    {
+        GameObject playerCam = GameObject.Find("PlayerCamera");
+        playerCam.GetComponent<DirtyLensFlare>().enabled = true;
+        Instantiate(holySpell, holySpellSpawnPoint, Quaternion.identity);
+        GameObject spellToDestroy = GameObject.Find("Holy Spell (WIP)(Clone)");
+        Destroy(spellToDestroy, 4.0f);
+        StartCoroutine(SetHolySpellFlag(false, 4.0f));
+    }
+    IEnumerator SetHolySpellFlag(bool val, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        GameObject playerCam = GameObject.Find("PlayerCamera");
+        playerCam.GetComponent<DirtyLensFlare>().enabled = false;
+        holySpellFlag = val;
     }
 }

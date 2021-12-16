@@ -1,0 +1,8 @@
+Simply load the Falling_Feathers.unity for an example scene, or drag the required feathers asset from the Prefabs folder into the Hierarchy window.
+
+
+Have fun!
+
+Thanks for purchasing this asset - please consider rating or writing a review about it on the Asset Store. If you have any questions then don't please don't hesitate to get in touch at bendurrant@rivermillstudios.com
+
+

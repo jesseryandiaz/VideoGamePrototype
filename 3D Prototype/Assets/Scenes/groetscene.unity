@@ -4615,7 +4615,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1984088507837086539, guid: 3a5a8a1634d988646a50675e7199d401, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1984088507837086539, guid: 3a5a8a1634d988646a50675e7199d401, type: 3}
       propertyPath: m_LocalScale.x
@@ -5605,6 +5605,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 6
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -5712,6 +5713,28 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f524cac4f2747b4fb11c694dd9b39b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lensFlareType: 1
+  saturation: 0.9
+  threshold: 0.631
+  flareIntensity: 2.5
+  bloomIntensity: 0.98
+  iterations: 0
+  blurSpread: 0.6
+  downsample: 12
+  useDirt: 0
+  screenDirt: {fileID: 0}
 --- !u!1 &980079516
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,7 +6528,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 457039f5b5724684cbc067b74eabbe86, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cc6699269b4c1d44ea1e860518b9bb73, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6641,10 +6664,14 @@ MonoBehaviour:
   levelScript: {fileID: 2126258618}
   cam: {fileID: 963194228}
   actualSpeed: 1.6
-  maxSpeed: 3.6
+  accelSpeed: 0.4
   walkSpeed: 1.6
   sprintSpeed: 3.6
   turnSmoothTime: 0.1
+  xoffset: 0
+  yoffset: 4.6
+  zoffset: -7.2
+  holySpell: {fileID: 1163843858466312861, guid: f6863aafcce1b9a408b9eeabc950a782, type: 3}
 --- !u!1001 &1154769769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9112,7 +9139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1600843228189121776, guid: 92ad5d8f02e6f934ba0e9d12003c613a, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1600843228189121776, guid: 92ad5d8f02e6f934ba0e9d12003c613a, type: 3}
       propertyPath: m_LocalScale.x

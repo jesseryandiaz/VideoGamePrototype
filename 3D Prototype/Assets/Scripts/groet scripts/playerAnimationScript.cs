@@ -15,35 +15,6 @@ public class playerAnimationScript : MonoBehaviour
     private bool[] states = new bool[] { true, false, false };
     void Update()
     {
-        /*bool sprinting = Input.GetKey(sprint);
-        //if any of the movement keys are pressed down, player is moving
-        if (Input.GetKey(moveFor) || Input.GetKey(moveLeft) ||
-            Input.GetKey(moveBack) || Input.GetKey(moveRight))
-        {
-            //if sprint button is held while movement keys are pressed, the character is sprinting
-            if (Input.GetKey(sprint)){ 
-                playerAnimator.SetBool("running", true);
-            }
-            //if not, the character is walking and not sprinting
-            else
-            {
-                playerAnimator.SetBool("walking", true);
-                playerAnimator.SetBool("running", false);
-            }
-        }
-        //if none of the movement buttons are pressed, the character won't be walking or running
-        if (!Input.GetKey(moveFor) && !Input.GetKey(moveLeft) && !Input.GetKey(moveBack) && !Input.GetKey(moveRight))
-        {
-            playerAnimator.SetBool("running", false);
-            playerAnimator.SetBool("walking", false);
-            if (sprinting)
-            {
-                playerAnimator.SetBool("idle", true);
-            }
-        }*/
-        Debug.Log("Idle: " + states[0] + "    Walk: " + states[1] + "    Run: " + states[2]);
-
-        //new better state machine control
         bool moving = Input.GetKey(moveFor) || Input.GetKey(moveLeft) || Input.GetKey(moveBack) || Input.GetKey(moveRight);
         bool sprinting = Input.GetKey(sprint);
         if (states[0])

@@ -10,10 +10,6 @@ public class zombieScript : MonoBehaviour
     private Vector3 enemyPosition;
     private Vector3 playerPosition;
     private Transform playerTransform;
-    void Start()
-    {
-        //gameObject.transform.position = new Vector3(-3.574f, 0.83f, 1.9249f);
-    }
 
     void Update()
     {

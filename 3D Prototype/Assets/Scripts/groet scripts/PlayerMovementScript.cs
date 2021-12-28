@@ -58,18 +58,16 @@ public class PlayerMovementScript : MonoBehaviour
         //Holy Spell
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            //Debug.Log("it me");
             HolySpellDelayed(3.0f);
         }
+        
     }
 
     private void FixedUpdate()
     {
         //important definitions for user input
         horizontal = Input.GetAxis("Horizontal");
-        //Debug.Log("Horizontal Input:  " + horizontal);
         vertical = Input.GetAxis("Vertical");
-        //Debug.Log("Vertical Input:  " + vertical);
 
         //ROTATION CODE
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -130,7 +128,9 @@ public class PlayerMovementScript : MonoBehaviour
         if (!holySpellFlag)
         {
             gameObject.GetComponent<AudioSource>().Play();
-            holySpellSpawnPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 6.0f);
+            float xholy = 4.5f * Mathf.Sin(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
+            float zholy = 4.5f * Mathf.Cos(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
+            holySpellSpawnPoint = new Vector3(transform.position.x + xholy, transform.position.y, transform.position.z + zholy);
             Invoke("HolySpell", delay);
             holySpellFlag = true;
         }

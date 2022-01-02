@@ -11,9 +11,9 @@ public class VampiricGrip : MonoBehaviour
 	
 	// private variables
 	bool SpellReady = true;
-	float x_offset = 0;
-	float y_offset = 0.5f;
-	float z_offset = 0.5f;
+	float x_offset = 0.074f;
+	float y_offset = 0.91f;
+	float z_offset = -5.39f;
 	
    // Update is called once per frame
     void Update() {
@@ -42,13 +42,13 @@ public class VampiricGrip : MonoBehaviour
 		
 		for (float i=0.5f; i<1.0f; i += 0.025f) {
 			claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
-			claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, i + z_offset);
+			//claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, claw.transform.localPosition.z);
 			yield return new WaitForSeconds(.01f);
 		}
 		
 		for (float i=1.0f; i>0; i -= 0.025f) {
 			claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
-			claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, i + z_offset);
+			//claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, claw.transform.localPosition.z);
 			yield return new WaitForSeconds(.01f);
 		}
 		

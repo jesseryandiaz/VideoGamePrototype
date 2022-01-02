@@ -11,44 +11,45 @@ public class VampiricGrip : MonoBehaviour
 	
 	// private variables
 	bool SpellReady = true;
-	Vector3 spawnPoint;
+	float x_offset = 0;
+	float y_offset = 0.5f;
+	float z_offset = 0.5f;
 	
    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
-		if (Input.GetKeyDown(KeyCode.Keypad2) && SpellReady)
-        {
+		if (Input.GetKeyDown(KeyCode.Keypad2) && SpellReady) {
 				
-			//gameObject.GetComponent<AudioSource>().Play();
+			gameObject.GetComponent<AudioSource>().Play();
 			Invoke("CastSpell", 1.5f);
 			SpellReady = false;
-			print("HELLO");
         }
 		
     }
 	
 	void CastSpell() {
 		
-		float x_offset = 0.5f * Mathf.Sin(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-        float z_offset = 0.5f * Mathf.Cos(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-		Vector3 spawnPoint = new Vector3(transform.position.x + x_offset, transform.position.y, transform.position.z + z_offset);
-		Instantiate(VampiricGripClaw, spawnPoint, Player.transform.rotation);
+		Vector3 spawnPoint = new Vector3(x_offset, y_offset, z_offset);
+		Instantiate(VampiricGripClaw, spawnPoint, Player.transform.rotation, Player.transform);
 		
-		GameObject claw = GameObject.Find("Vampiric Claw (Clone)");
-		StartCoroutine(ExtendAnimation(claw));
+		StartCoroutine(ExtendAnimation());
 		
 	}
 	
-	IEnumerator ExtendAnimation(GameObject claw) {
-		for (float i=1.0f; i<3.0f; i += 0.1f) {
-			claw.transform.localScale = new Vector3(i, 1, 1);
-			yield return new WaitForSeconds(.1f);
+	IEnumerator ExtendAnimation() {
+		
+		GameObject claw = GameObject.Find("Vampiric Grip(Clone)");
+		
+		for (float i=0.5f; i<1.0f; i += 0.025f) {
+			claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
+			claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, i + z_offset);
+			yield return new WaitForSeconds(.01f);
 		}
 		
-		for (float i=3.0f; i>1.0f; i -= 0.1f) {
-			claw.transform.localScale = new Vector3(i, 1, 1);
-			yield return new WaitForSeconds(.1f);
+		for (float i=1.0f; i>0; i -= 0.025f) {
+			claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
+			claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, i + z_offset);
+			yield return new WaitForSeconds(.01f);
 		}
 		
 		Destroy(claw);

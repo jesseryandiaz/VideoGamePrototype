@@ -24,11 +24,6 @@ public class PlayerMovementScript : MonoBehaviour
     public float yoffset = 4.6f;
     public float zoffset = 7.2f;
 
-    //spell prefab
-    public GameObject holySpell;
-    private Vector3 holySpellSpawnPoint;
-    bool holySpellFlag;
-
     void Start()
     {
         Debug.Log("Hello World");
@@ -54,13 +49,6 @@ public class PlayerMovementScript : MonoBehaviour
         {
             sprinting = false;
         }
-
-        //Holy Spell
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            HolySpellDelayed(3.0f);
-        }
-        
     }
 
     private void FixedUpdate()
@@ -112,43 +100,8 @@ public class PlayerMovementScript : MonoBehaviour
         }
         //Updates velocity with above changes
         rigidbodycomponent.velocity = new Vector3(horizontal, rigidbodycomponent.velocity.y, vertical).normalized * actualSpeed;
-        //rigidbodycomponent.velocity = new Vector3(hmem, rigidbodycomponent.velocity.y, vmem).normalized * actualSpeed;
 
         //CAMERA CODE
         cam.position = new Vector3(transform.position.x, transform.position.y + 4.6f, transform.position.z - 7.2f);
-    }
-
-
-
-
-
-    //Groets playing with spell stuff down here.. NUM1 to cast
-    private void HolySpellDelayed(float delay)
-    {
-        if (!holySpellFlag)
-        {
-            gameObject.GetComponent<AudioSource>().Play();
-            float xholy = 4.5f * Mathf.Sin(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-            float zholy = 4.5f * Mathf.Cos(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-            holySpellSpawnPoint = new Vector3(transform.position.x + xholy, transform.position.y, transform.position.z + zholy);
-            Invoke("HolySpell", delay);
-            holySpellFlag = true;
-        }
-    }
-    private void HolySpell()
-    {
-        GameObject playerCam = GameObject.Find("PlayerCamera");
-        playerCam.GetComponent<DirtyLensFlare>().enabled = true;
-        Instantiate(holySpell, holySpellSpawnPoint, Quaternion.identity);
-        GameObject spellToDestroy = GameObject.Find("Holy Spell (WIP)(Clone)");
-        Destroy(spellToDestroy, 4.0f);
-        StartCoroutine(SetHolySpellFlag(false, 4.0f));
-    }
-    IEnumerator SetHolySpellFlag(bool val, float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
-        GameObject playerCam = GameObject.Find("PlayerCamera");
-        playerCam.GetComponent<DirtyLensFlare>().enabled = false;
-        holySpellFlag = val;
     }
 }

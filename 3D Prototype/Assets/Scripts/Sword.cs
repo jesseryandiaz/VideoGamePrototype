@@ -13,7 +13,6 @@ public class Sword : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        //colliderino = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -27,4 +26,5 @@ public class Sword : MonoBehaviour
         if (animator.IsInTransition(0)) colliderino.enabled = true;
         else colliderino.enabled = false;
     }
+	
 }

@@ -10,6 +10,7 @@ public class zombieScript : MonoBehaviour
     private Vector3 enemyPosition;
     private Vector3 playerPosition;
     private Transform playerTransform;
+	
 
     void Update()
     {
@@ -19,5 +20,6 @@ public class zombieScript : MonoBehaviour
         gameObject.transform.LookAt(playerPosition);
         gameObject.transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, 0.4f * Time.deltaTime);
     }
+	
 
 }

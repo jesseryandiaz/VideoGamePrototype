@@ -75,7 +75,6 @@ public class spellScript : MonoBehaviour
                                          Player.transform.position.y + y_offset, 
                                          Player.transform.position.z + z_offset);
         Instantiate(VampiricGripClaw, spawnPoint, Player.transform.rotation, Player.transform);
-
         StartCoroutine(ExtendAnimation());
 
     }
@@ -88,14 +87,12 @@ public class spellScript : MonoBehaviour
         for (float i = 0.5f; i < 1.0f; i += 0.025f)
         {
             claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
-            //claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, claw.transform.localPosition.z);
             yield return new WaitForSeconds(.01f);
         }
 
         for (float i = 1.0f; i > 0; i -= 0.025f)
         {
             claw.transform.localScale = new Vector3(claw.transform.localScale.x, claw.transform.localScale.y, i);
-            //claw.transform.localPosition = new Vector3(claw.transform.localPosition.x, claw.transform.localPosition.y, claw.transform.localPosition.z);
             yield return new WaitForSeconds(.01f);
         }
 

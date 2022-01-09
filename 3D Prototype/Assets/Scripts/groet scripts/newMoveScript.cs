@@ -14,6 +14,7 @@ public class newMoveScript : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     private Vector3 moveVect;
+	
 
     private void Start()
     {
@@ -53,5 +54,6 @@ public class newMoveScript : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
+		
     }
 }

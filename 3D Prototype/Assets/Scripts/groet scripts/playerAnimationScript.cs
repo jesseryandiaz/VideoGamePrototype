@@ -13,10 +13,18 @@ public class playerAnimationScript : MonoBehaviour
     public KeyCode sprint;
 
     private bool[] states = new bool[] { true, false, false };
+    private bool sprinting = false;
     void Update()
     {
         bool moving = Input.GetKey(moveFor) || Input.GetKey(moveLeft) || Input.GetKey(moveBack) || Input.GetKey(moveRight);
-        bool sprinting = Input.GetKey(sprint);
+        if (Input.GetKeyDown(sprint)) //use keyup and keydown with a boolean for sprinting to make it more resilient to spamming the sprint button
+        {
+            sprinting = true;
+        }
+        if(Input.GetKeyUp(sprint))
+        {
+            sprinting = false;
+        }
         if (states[0])
         {
             if (moving)

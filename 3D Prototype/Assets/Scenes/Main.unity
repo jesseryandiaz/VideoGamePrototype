@@ -3563,7 +3563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889916270699016, guid: 313ad0ef31f75b84f9f31c0528802fdd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.91
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 4889916270699016, guid: 313ad0ef31f75b84f9f31c0528802fdd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4872,19 +4872,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4889916270699016, guid: 313ad0ef31f75b84f9f31c0528802fdd, type: 3}
   m_PrefabInstance: {fileID: 712129246}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1130688067
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130688064}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 1, z: 0.3}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!82 &1130688069
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5000,44 +4987,6 @@ MonoBehaviour:
   moveBack: 115
   moveRight: 100
   sprint: 304
---- !u!54 &1130688071
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130688064}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!114 &1130688072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130688064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d48c066d6189440a3395872742ef4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelScript: {fileID: 2126258618}
-  cam: {fileID: 963194228}
-  actualSpeed: 1.6
-  accelSpeed: 0.4
-  walkSpeed: 1.6
-  sprintSpeed: 3.6
-  turnSmoothTime: 0.1
-  xoffset: 0
-  yoffset: 4.6
-  zoffset: -7.2
 --- !u!114 &1130688073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5053,6 +5002,40 @@ MonoBehaviour:
   holySpell: {fileID: 1163843858466312861, guid: f6863aafcce1b9a408b9eeabc950a782, type: 3}
   VampiricGripClaw: {fileID: 8077124818304318799, guid: 344e5ab08ddbef24da2cf9411af6c6eb, type: 3}
   Player: {fileID: 1130688064}
+--- !u!143 &1130688074
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130688064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.1
+  m_SkinWidth: 0.03
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1130688075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130688064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf52a0f3d54485c40839415589af31b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charCon: {fileID: 1130688074}
+  walkSpeed: 1
+  runSpeed: 3.4
+  turnSmoothTime: 0.1
 --- !u!1001 &1154769769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5340,7 +5323,6 @@ GameObject:
   - component: {fileID: 1218205394}
   - component: {fileID: 1218205397}
   - component: {fileID: 1218205396}
-  - component: {fileID: 1218205395}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Weapon
@@ -5364,19 +5346,6 @@ Transform:
   m_Father: {fileID: 1130688066}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1218205395
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218205393}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.75
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1218205396
 MonoBehaviour:
   m_ObjectHideFlags: 0

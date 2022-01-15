@@ -18,6 +18,15 @@ public class spellScript : MonoBehaviour
     float y_offset = 0.5f;//0.91f;
     float z_offset = 0;//-5.39f;
 
+    //Fireball things
+    public GameObject Fireball;
+    public float FireballSpeed;
+    float yball = 1.25f;
+    float zball = 1.25f;
+    private Vector3 fireposition;
+    bool firebool;
+
+
     void Update()
     {
         //Holy Spell
@@ -33,6 +42,13 @@ public class spellScript : MonoBehaviour
             gameObject.GetComponent<AudioSource>().Play();
             Invoke("CastSpell", 1.5f);
             SpellReady = false;
+        }
+
+        //Fireball Spell
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            Castfireball();
+
         }
     }
 
@@ -72,7 +88,7 @@ public class spellScript : MonoBehaviour
     {
 
         Vector3 spawnPoint = new Vector3(Player.transform.position.x + x_offset, //changed this so it spawns where we want it to
-                                         Player.transform.position.y + y_offset, 
+                                         Player.transform.position.y + y_offset,
                                          Player.transform.position.z + z_offset);
         Instantiate(VampiricGripClaw, spawnPoint, Player.transform.rotation, Player.transform);
         StartCoroutine(ExtendAnimation());
@@ -99,4 +115,41 @@ public class spellScript : MonoBehaviour
         Destroy(claw);
         SpellReady = true;
     }
+
+    //fireball spell////////////////////////////////////////////////////////////
+    void Castfireball()
+    {
+        
+
+        Vector3 fireposition = new Vector3(transform.position.x + 0,transform.position.y + yball,transform.position.z + zball);
+
+        //garbage code//Vector3 fireballvelocity = new Vector3(0, 0, transform.position.z * FireballSpeed);
+
+       
+
+        Instantiate(Fireball, fireposition,transform.rotation);
+
+        GameObject fireballclone = GameObject.Find("Fireball(Clone)");
+
+        firebool = true;
+
+
+
+
+        Destroy(fireballclone.gameObject, 5);
+
+
+    }
+    private void FixedUpdate()
+    {
+        if (firebool)
+        {
+            GameObject.Find("Fireball(Clone)").GetComponent<Rigidbody>().AddForce(Vector3.forward * FireballSpeed);
+            firebool = false;
+          
+        }
+
+
+    }
 }
+    

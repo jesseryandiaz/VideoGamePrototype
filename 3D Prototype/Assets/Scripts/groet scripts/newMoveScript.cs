@@ -15,6 +15,15 @@ public class newMoveScript : MonoBehaviour
     float turnSmoothVelocity;
     private Vector3 moveVect;
 	
+	//object references
+	public GameObject levelScript;
+	
+	//camera
+	public Transform cam;
+    public float xoffset = 0.0f;
+    public float yoffset = 4.6f;
+    public float zoffset = 7.2f;
+	
 
     private void Start()
     {
@@ -37,6 +46,13 @@ public class newMoveScript : MonoBehaviour
         {
             currentSpeed = walkSpeed;
         }
+		
+		//switch realms key
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            levelScript.GetComponent<levelScript>().SwitchRealms();
+        }
     }
 
     private void FixedUpdate()
@@ -55,5 +71,7 @@ public class newMoveScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
 		
+		//CAMERA CODE
+		cam.position = new Vector3(transform.position.x, transform.position.y + yoffset, transform.position.z - zoffset);
     }
 }

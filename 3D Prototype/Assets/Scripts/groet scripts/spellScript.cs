@@ -24,8 +24,7 @@ public class spellScript : MonoBehaviour
     float yball = 1.25f;
     float zball = 1.25f;
     private Vector3 fireposition;
-    bool firebool;
-
+	private Rigidbody rigidbodycomponent;
 
     void Update()
     {
@@ -119,37 +118,26 @@ public class spellScript : MonoBehaviour
     //fireball spell////////////////////////////////////////////////////////////
     void Castfireball()
     {
-        
+		//all spells make this sound
+		gameObject.GetComponent<AudioSource>().Play();
+		
+		//these lines calculate the appropriate spawn point based on character rotation
+        float xfireball = zball * Mathf.Sin(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
+        float zfireball = zball * Mathf.Cos(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
+        Vector3 fireposition = new Vector3(transform.position.x + xfireball, transform.position.y + yball, transform.position.z + zfireball);
 
-        Vector3 fireposition = new Vector3(transform.position.x + 0,transform.position.y + yball,transform.position.z + zball);
-
-        //garbage code//Vector3 fireballvelocity = new Vector3(0, 0, transform.position.z * FireballSpeed);
-
+		//these lines calculates speed in both necessary directions
+		float xfireballSpeed = 5.0f * Mathf.Sin(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
+        float zfireballSpeed = 5.0f * Mathf.Cos(gameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
        
-
-        Instantiate(Fireball, fireposition,transform.rotation);
-
+	   //make then find the fireball for reference
+        Instantiate(Fireball, fireposition, transform.rotation);
         GameObject fireballclone = GameObject.Find("Fireball(Clone)");
-
-        firebool = true;
-
-
-
-
+		
+		Rigidbody rigidbodycomponent = fireballclone.GetComponent<Rigidbody>();
+		rigidbodycomponent.velocity = new Vector3(xfireballSpeed, 0.0f, zfireballSpeed).normalized * 5.0f;		
         Destroy(fireballclone.gameObject, 5);
-
-
-    }
-    private void FixedUpdate()
-    {
-        if (firebool)
-        {
-            GameObject.Find("Fireball(Clone)").GetComponent<Rigidbody>().AddForce(Vector3.forward * FireballSpeed);
-            firebool = false;
-          
-        }
-
-
+		
     }
 }
     
